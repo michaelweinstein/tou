@@ -1,0 +1,32 @@
+
+README for Tou 2
+
+About 12 hours.
+
+There are no bugs (in the Tou 1 requirements) that I know of. None of the Tou 2 additions (Polygon or CollisionTester or etc...) should be instantiated (they're commented out), because there are bugs in those.
+
+ENGINE
+
+Polygon Collision: 
+Most methods in PolygonCollision are defined within the PolygonShape class, and other shapes forward the double dispatch to the Polygon's methods. Circle-Polygon is supported using the SAT with one axis along the line that includes the circle's center and Polygon's nearest vertex. AAB-Polygon collision is achieved by turning the AARectShape into a PolygonShape and calling Polygon-Polygon collision. It is not the most efficient way computationally, but it is not significant for only 2 vs 4 vertices. Polygon-Polygon collision detection uses Separating Axis Theorem, projecting every vertex of each shape against the axes of the edge normals of each edge for both shapes. I created a SeparatingAxisTheorem to handle the actual projections, returning a min and max range, the only pieces of the projection need to check for overlap. 
+
+Compound Shapes:
+Polygons can be included in CompoundShapes. See the Game specifics to see how this was utilized. PolygonShape extends from the abstract superclass Shape like all other component Shapes, so CompoundShapes includes by polymorphism. Polygon uses a reference location which is set relative to the vertices in the constructor. So when the CompoundShape needs to refer to its components locations, it uses this reference location. You can also set PolygonShape's dimensions manually before passing it into CompoundShape in order to indicate a bounding box that the CompoundShape can use. 
+
+GAME
+
+Circle-Polygon collisions:  Player and Enemy and Bullet and Enemy. Enemies can be partially comprised of Polygons (randomized right triangles and parallelograms). Although they are part of a CompoundShape, the collision for CompoundShape calls Polygon's collision detection, so it is making use of Circle-Polygon collisions, just nested in CompoundShapes. Another Circle-Polygon collision is the Player shooting or colliding with the Boss, a CompoundShape with a large Polygon as body.
+
+AAB-Polygon collisions: Beteween Player and Enemy. Player's main component is a Polygon (triangle), stored in a CompoundShape. A large component of the randomized Enemy body is the AARectShape. So the game has this collision between the Player and an Enemy's AARectShape component.
+
+Polygon-Polygon collisions: Between the body of the Player (a 3-vertex Polygon stored in a CompoundShape) and the Boss; Player and Enemy (when has Polygon component); Boss's Missile (Hexagon) and Player (Triangle). 
+
+Win Condition: If you reach the Boss, and then defeat it without dying. The boss is reached by destroying 50 Enemy units, kept track of at screen upper left. The boss's health is correlated to its transparency, but at 30% of its health remaining, the Boss becomes invisible. This is not a win, but it is close: the player must continue to successfully shoot the Boss until it dies. The Boss has a health of 300 hp, and each bullet does 1 hp of damage. Each missile (from the eye) does 10 hp of damage.
+
+Lose Condition: If the Player hits an Enemy during the normal game, it dies. If the Player runs out of health by getting shot by the Boss too many times and runs out of health, game loss. The player has health of 100 hp, and each Bullet shot by the Boss does exactly 1 hp of damage. So the lose condition is the player getting hit by 100 bullets at the Boss, or by a single Enemy during beginning of game.
+
+Main Menu is the screen with the bouncing title at program startup. The lose screen is red and pops up the moment a lose condition is satisfied (see above). The win screen is the screen with randomized color flashing, and its quite exciting. It is instantiated when a win condition is satisfied.
+
+During gameplay: Player can restart the game at any time by pressing the 'r' button. The player can return to MainMenu by pressing the 'm' button. 
+
+On the Win or Lose screens, player can press any key to get back to the Main Menu. (Except for space bar, to avoid shooting a lot and accidentally restarting the game without even seeing the screen). All screens extend from a TouScreen, to factor out resize of background and pressing the 'q' button to quit at any time.

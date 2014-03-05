@@ -1,0 +1,22 @@
+
+INSTRUCTIONS FOR TOU
+
+Player controls unit with mouse movement, or toggle freeze with left click. Press Space Bar to shoot, hold Space Bar to shoot faster. If you successfully shoot your enemy, it will flash red. If you collide with an enemy, you will die. So shoot it or avoid it. 
+
+You must kill 50 enemies before reaching the boss. The enemies you remaining are displayed in the upper left corner of the screen. The game gets harder as you defeat more enemies. The more enemies you kill, the more enemies are on the screen at once (spawn at smaller intervals), and the faster they move (actual movement speed increases). When that reaches 0, you must wait until whatever enemies are left will drift off the screen, and then the boss will come.
+
+When 50 enemies have been killed, the boss arrives and moves only up and down on the right of the screen. It has three guns which shoot bullets, and an eyeball which can shoot hexagonal missiles. The missiles do 10x the damage as the bullets, so watch out for those ones. If the Player collides with the Boss, it is instant death.
+
+The boss has health of 350 hp, and each of the Player's bullet does 1 hp of damage. The boss's transparency indicates health. When the boss is at only 30% health remaining, it switches to an invisibility tactic. The only way you can see it is by shooting it, so that it flashes with blood. You can also interpolate to where the bullets are coming from. The Boss's health must be completely diminished in order to win the game.
+
+Controls during gameplay:
+	'Left Click' to toggle freeze
+	Press 'p' to pause
+	Press 'm' to return to Main Menu
+	Press 'r' to restart game
+	Press 'q' to quit
+
+
+In the win or lose screens, click anywhere on the screen, or press any key (except for space bar) to return to main menu. Or you can always press q to quit, from any screen.
+
+

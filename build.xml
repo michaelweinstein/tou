@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project tou">
+    <!--this file was created by Eclipse Runnable JAR Export Wizard-->
+    <!--ANT 1.7 is required                                        -->
+    <target name="create_run_jar">
+        <jar destfile="/Users/michaelweinstein/Desktop/Software/cs195n/tou.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="miweinst.tou.TouMain"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="/Users/michaelweinstein/Desktop/Software/tou/tou/bin"/>
+        </jar>
+    </target>
+</project>
